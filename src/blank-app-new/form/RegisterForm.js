@@ -22,7 +22,9 @@ const RegisterForm = props => {
     const onEmailChangeText = text => setEmail(text)
     const onSaveButtonPressed = () => {
         try {
-            mobileAppService.saveUser(new UserInfo(0, username, name, email))
+            const user = mobileAppService.saveUser(new userInfo(0, username, name, email))
+
+            alert(user.id == 0 ? "Eklendi" : "Kayıt Başarılı")
         }
         catch (ex) {
             alert(ex.message)
