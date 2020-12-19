@@ -14,6 +14,12 @@ class CSDChatAppHelper {
         return this._userInfoRepository.save(userInfo)
     }
 
+    updateUser(userInfo)
+    {
+        //...
+        return this._userInfoRepository.update(userInfo)
+    }
+
     exitsUserByUsername(username)
     {
         //...

@@ -9,6 +9,18 @@ class UserInfoRepository {
 
     }
 
+    update(userInfo)
+    {
+      const user = g_users.findIndex(ui => ui.id == userInfo.id)
+
+      if (user < 0)
+        return false
+
+      g_users[user].lastupdate = new Date()
+
+      return true
+    }
+
     save(userInfo)
     {
         if (!this.existsByUsername(userInfo.username)) {
@@ -23,7 +35,6 @@ class UserInfoRepository {
     {
         return g_users.findIndex(ui => ui.username == username) >= 0
     }
-
 
     get all()
     {

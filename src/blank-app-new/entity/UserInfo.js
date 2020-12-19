@@ -5,6 +5,8 @@ class UserInfo {
         this._username = username
         this._name = name
         this._email = email
+        this._registerdate = new Date()
+        this._lastupdate = this._registerdate
     }
 
     get id()
@@ -17,6 +19,8 @@ class UserInfo {
         this._id = value
     }
 
+
+
     get username()
     {
         return this._username
@@ -25,6 +29,21 @@ class UserInfo {
     get name()
     {
         return this._name
+    }
+
+    get registerdate()
+    {
+        return this._registerdate
+    }
+
+    set lastupdate(date)
+    {
+        this._lastupdate = date
+    }
+
+    get lastupdate()
+    {
+        return this._lastupdate
     }
 
     get email()

@@ -7,6 +7,12 @@ class CSDChatMobileAppService {
         this._chatAppHelper = chatAppHelper
     }
 
+    updateUser(userInfo)
+    {
+      //...
+      return this._chatAppHelper.updateUser(userInfo)
+    }
+
     saveUser(userInfo)
     {
         //...

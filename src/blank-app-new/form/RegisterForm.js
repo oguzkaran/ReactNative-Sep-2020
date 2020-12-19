@@ -1,19 +1,25 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 
-import {mobileAppService} from '../global/Global.js'
+import {mobileAppService} from '../global/global.js'
 import {UserInfo} from "../entity/UserInfo.js"
 
 const RegisterForm = props => {
     const [users, setUsers] = useState([])
-    const [username, setUsername] = useState("")
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("oguzkaran")
+    const [name, setName] = useState("Oğuz Karan")
+    const [email, setEmail] = useState("oguzkaran@csystem.org")
 
-    const setListView = u => (
-        <TouchableOpacity key={u.id} onPress={() => {}}
+    const onListViewTouchableOpacityPress = ui => {
+      mobileAppService.updateUser(ui)
+      alert(`[${ui.id}]${ui.username} - ${ui.registerdate.toString()} - Last: ${ui.lastupdate.toString()}`)
+    }
+
+//1 ok bilgileri alıyoruz ++kayıt tarihi alsın
+    const setListView = ui => (
+        <TouchableOpacity key={ui.id} onPress={() => {onListViewTouchableOpacityPress(ui)}}
             style={{width: 100, height:25}}>
-            <Text style={{backgroundColor: 'green', textAlign: 'center'}}>{u.username}</Text>
+            <Text style={{backgroundColor: 'green', textAlign: 'center'}}>{ui.username}</Text>
         </TouchableOpacity>
     )
 
@@ -22,9 +28,9 @@ const RegisterForm = props => {
     const onEmailChangeText = text => setEmail(text)
     const onSaveButtonPressed = () => {
         try {
-            const user = mobileAppService.saveUser(new userInfo(0, username, name, email))
+            const user = mobileAppService.saveUser(new UserInfo(0, username, name, email))
 
-            alert(user.id == 0 ? "Eklendi" : "Kayıt Başarılı")
+            alert(user.id == 0 ? "Eklenemedi" : "Kayıt başarıyla eklendi")
         }
         catch (ex) {
             alert(ex.message)
