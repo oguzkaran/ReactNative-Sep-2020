@@ -6,7 +6,6 @@ let g_currentId = 1
 class UserInfoRepository {
     constructor()
     {
-
     }
 
     save(userInfo)
@@ -39,4 +38,6 @@ class UserInfoRepository {
 
 const g_userInfoRepository = new UserInfoRepository()
 
-export {UserInfoRepository}
+const userInfoRepository = g_userInfoRepository
+
+export {UserInfoRepository, userInfoRepository}

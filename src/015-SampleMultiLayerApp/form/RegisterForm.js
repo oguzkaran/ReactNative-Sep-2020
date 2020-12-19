@@ -6,9 +6,9 @@ import {UserInfo} from "../entity/UserInfo.js"
 
 const RegisterForm = props => {
     const [users, setUsers] = useState([])
-    const [username, setUsername] = useState("")
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("oguzkaran")
+    const [name, setName] = useState("Oğuz Karan")
+    const [email, setEmail] = useState("oguzkaran@csystem.org")
 
     const setListView = u => (
         <TouchableOpacity key={u.id} onPress={() => {}}
@@ -22,7 +22,9 @@ const RegisterForm = props => {
     const onEmailChangeText = text => setEmail(text)
     const onSaveButtonPressed = () => {
         try {
-            mobileAppService.saveUser(new UserInfo(0, username, name, email))
+            const user = mobileAppService.saveUser(new UserInfo(0, username, name, email))
+
+            alert(user.id == 0 ? "Eklenemedi" : "Kayıt başarıyla eklendi")
         }
         catch (ex) {
             alert(ex.message)

@@ -33,6 +33,6 @@ class CSDChatAppHelper {
 }
 
 
-let g_chatAppHelper = new CSDChatAppHelper(UserInfoRepository.getInstance())
+const g_chatAppHelper = new CSDChatAppHelper(UserInfoRepository.getInstance())
 
 export {CSDChatAppHelper}
