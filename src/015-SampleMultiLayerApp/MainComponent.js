@@ -5,8 +5,7 @@ import {RegisterForm} from './form/RegisterForm.js';
 
 const MainComponent = () => {
     return (
-        <>
-            <Text>C ve Sistem Programcıları Derneği</Text>
+        <>            
             <RegisterForm/>
         </>
     )

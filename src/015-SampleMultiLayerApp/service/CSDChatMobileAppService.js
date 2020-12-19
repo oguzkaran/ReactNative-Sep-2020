@@ -13,6 +13,12 @@ class CSDChatMobileAppService {
         return this._chatAppHelper.saveUser(userInfo)
     }
 
+    updateUserDate(userInfo)
+    {
+        //...
+        return this._chatAppHelper.updateUserDate(userInfo)
+    }
+
     exitsUserByUsername(username)
     {
         //...

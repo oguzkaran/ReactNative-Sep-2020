@@ -23,6 +23,17 @@ class UserInfoRepository {
         return g_users.findIndex(ui => ui.username == username) >= 0
     }
 
+    updateDate(userInfo)
+    {
+        const index = g_users.findIndex(ui => ui.id == userInfo.id)
+
+        if (index < 0)
+            return false
+
+        g_users[index].lastUpdate = new Date()
+
+        return true
+    }
 
     get all()
     {

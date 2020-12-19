@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native
 
 import {mobileAppService} from '../global/global.js'
 import {UserInfo} from "../entity/UserInfo.js"
+import {ExceptionUtil} from "../util/ExceptionUtil.js"
 
 const RegisterForm = props => {
     const [users, setUsers] = useState([])
@@ -10,10 +11,18 @@ const RegisterForm = props => {
     const [name, setName] = useState("Oğuz Karan")
     const [email, setEmail] = useState("oguzkaran@csystem.org")
 
-    const setListView = u => (
-        <TouchableOpacity key={u.id} onPress={() => {}}
+    const onListViewTouchableOpacityPress = ui => {
+        const action = ui => {
+            alert(`[${ui.id}]${ui.username}-${ui.lastUpdate.toString()}`)
+            mobileAppService.updateUserDate(ui)
+        }
+        ExceptionUtil.subscribe(() => action(ui), ex => alert(ex.message))
+    }
+
+    const setListView = ui => (
+        <TouchableOpacity key={ui.id} onPress={() => {onListViewTouchableOpacityPress(ui)}}
             style={{width: 100, height:25}}>
-            <Text style={{backgroundColor: 'green', textAlign: 'center'}}>{u.username}</Text>
+            <Text style={{backgroundColor: 'green', textAlign: 'center'}}>{ui.username}</Text>
         </TouchableOpacity>
     )
 
@@ -21,22 +30,17 @@ const RegisterForm = props => {
     const onNameChangeText = text => setName(text)
     const onEmailChangeText = text => setEmail(text)
     const onSaveButtonPressed = () => {
-        try {
+        const action = () => {
             const user = mobileAppService.saveUser(new UserInfo(0, username, name, email))
-
             alert(user.id == 0 ? "Eklenemedi" : "Kayıt başarıyla eklendi")
         }
-        catch (ex) {
-            alert(ex.message)
-        }
+
+        ExceptionUtil.subscribe(action, ex => ex.message)
     }
+
     const onListButtonPressed = () => {
-        try {
-            setUsers(mobileAppService.getAllUsers())
-        }
-        catch (ex) {
-            alert("Geçersiz işlem")
-        }
+        const action = () => setUsers(mobileAppService.getAllUsers())
+        ExceptionUtil.subscribe(action, () => alert("Geçersiz işlem"))
     }
 
     return (
