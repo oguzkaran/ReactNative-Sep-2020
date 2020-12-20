@@ -13,3 +13,6 @@ KAYNAK GÖSTERMEK KOŞULUYLA HER TÜRLÜ ALINTI YAPILABİLİR
 #multilayer
 #atom
 #webstorm
+#callback
+#state
+#props
