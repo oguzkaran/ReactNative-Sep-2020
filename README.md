@@ -1,4 +1,6 @@
 # ReactNative-Sep-2020
+KAYNAK GÖSTERMEK KOŞULUYLA HER TÜRLÜ ALINTI YAPILABİLİR
+
 #react
 #reactnative
 #reactjs
