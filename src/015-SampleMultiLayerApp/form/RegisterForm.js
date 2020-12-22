@@ -45,7 +45,7 @@ const RegisterForm = props => {
         if (name == "")
             validationErrors.push("name")
 
-        setName(surname.trim())
+        setSurname(surname.trim())
 
         if (surname == "")
             validationErrors.push("surname")
@@ -65,7 +65,7 @@ const RegisterForm = props => {
     const onSaveButtonPressed = () => {
         const validationErrors = validate()
         let message = ""
-        
+
         if (validationErrors.length != 0) {
             validationErrors.forEach(m => message += m + " ")
             alert(message + "alanları boş geçilemez")

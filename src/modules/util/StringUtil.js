@@ -8,9 +8,3 @@ String.prototype.capitalize = function() {
 String.prototype.isEmpty = function () {
     return this.length == 0
 }
-
-class StringUtil {
-
-}
-
-export {StringUtil}
