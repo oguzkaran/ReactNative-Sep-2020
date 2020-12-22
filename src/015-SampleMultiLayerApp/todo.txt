@@ -1,8 +1,8 @@
-1. Giriş bilgilerinin boş olup olmadıkları kontrol edilecek
++1. Giriş bilgilerinin boş olup olmadıkları kontrol edilecek
 
-2. Tümünü sil buttonu eklenecek sormadan silecek. İstenirse sil button'unun disabled durumu bir switch'e bağlı olabilir
++2. Tümünü sil buttonu eklenecek sormadan silecek. İstenirse sil button'unun disabled durumu bir switch'e bağlı olabilir
 
-3. Ad ve soyad ayrı alanlardan girilsin ancak userInfo için soyad büyük harf olacak birleştirilsin. Adın da ilk harfi büyük diğerleri
+3. Ad ve soyad ayrı alanlardan girilsin ancak userInfo için soyad büyük harf olacak şekilde birleştirilsin. Adın da ilk harfi büyük diğerleri
 küçük harf olarak eklenecektir
 
 4. Yeni repository eklenecek
