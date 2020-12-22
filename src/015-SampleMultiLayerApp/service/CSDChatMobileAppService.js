@@ -19,6 +19,12 @@ class CSDChatMobileAppService {
         return this._chatAppHelper.updateUserDate(userInfo)
     }
 
+    deleteAllUsers()
+    {
+        //...
+        return this._chatAppHelper.deleteAllUsers()
+    }
+
     exitsUserByUsername(username)
     {
         //...

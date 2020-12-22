@@ -1,6 +1,6 @@
 import {UserInfo} from "../entity/UserInfo.js"
 
-const g_users = []
+let g_users = []
 let g_currentId = 1
 
 class UserInfoRepository {
@@ -16,6 +16,11 @@ class UserInfoRepository {
         }
 
         return userInfo
+    }
+
+    deleteAll()
+    {
+        g_users = []
     }
 
     existsByUsername(username)

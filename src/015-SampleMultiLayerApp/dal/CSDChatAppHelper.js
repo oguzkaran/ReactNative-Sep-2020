@@ -14,6 +14,11 @@ class CSDChatAppHelper {
         return this._userInfoRepository.save(userInfo)
     }
 
+    deleteAllUsers()
+    {
+        this._userInfoRepository.deleteAll()
+    }
+
     updateUserDate(userInfo)
     {
         //...
