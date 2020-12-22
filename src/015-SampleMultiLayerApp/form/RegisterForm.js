@@ -4,20 +4,23 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Switch} from 'reac
 import {mobileAppService} from '../global/global.js'
 import {UserInfo} from "../entity/UserInfo.js"
 import {ExceptionUtil} from "../util/ExceptionUtil.js"
+import StringUtil from "../util/StringUtil.js"
 import {alertEmptyFieldsText, alertSaveFailText, alertNoSuchUserText} from '../resource/Resource.js'
 import {alertSaveSuccessText, alertUnexpectedStateText, alertInvalidOperationText} from '../resource/Resource.js'
 import {buttonSaveUserText, buttonDeleteAllUsersText, buttonListUsersText} from '../resource/Resource.js'
+import {placeholderUsernameText, placeholderNameText, placeholderSurnameText, placeholderEmailText} from '../resource/Resource.js'
 
 const RegisterForm = props => {
     const [users, setUsers] = useState([])
     const [username, setUsername] = useState("oguzkaran")
-    const [name, setName] = useState("Oğuz Karan")
+    const [name, setName] = useState("oĞUZ")
+    const [surname, setSurname] = useState("Karan")
     const [email, setEmail] = useState("oguzkaran@csystem.org")
     const [deleteSwitchEnabled, setDeleteSwitchEnabled] = useState(false)
 
     const onListViewTouchableOpacityPress = ui => {
         const action = ui => {
-            alert(`[${ui.id}]${ui.username}-${ui.lastUpdate.toString()}`)
+            alert(`[${ui.id}]${ui.name}-${ui.username}-${ui.lastUpdate.toString()}`)
             mobileAppService.updateUserDate(ui)
         }
         ExceptionUtil.subscribe(() => action(ui), ex => alert(ex.message))
@@ -31,35 +34,47 @@ const RegisterForm = props => {
     )
 
     const validate = () => {
+        validationErrors = []
         setUsername(username.trim())
 
         if (username == "")
-            return false
-
-        setEmail(email.trim())
-
-        if (email == "")
-            return false
+            validationErrors.push("username")
 
         setName(name.trim())
 
         if (name == "")
-            return false
+            validationErrors.push("name")
 
-        return true
+        setName(surname.trim())
+
+        if (surname == "")
+            validationErrors.push("surname")
+
+        setEmail(email.trim())
+
+        if (email == "")
+            validationErrors.push("email")
+
+        return validationErrors
     }
 
     const onUsernameChangeText = text => setUsername(text)
     const onNameChangeText = text => setName(text)
+    const onSurnameChangeText = text => setSurname(text)
     const onEmailChangeText = text => setEmail(text)
     const onSaveButtonPressed = () => {
-        if (!validate()) {
-            alert(alertEmptyFieldsText)
+        const validationErrors = validate()
+        let message = ""
+        
+        if (validationErrors.length != 0) {
+            validationErrors.forEach(m => message += m + " ")
+            alert(message + "alanları boş geçilemez")
             return
         }
 
         const action = () => {
-            const user = mobileAppService.saveUser(new UserInfo(0, username, name, email))
+            const fullname = name.capitalize() + " " + surname.toUpperCase()
+            const user = mobileAppService.saveUser(new UserInfo(0, username, fullname, email))
             alert(user.id == 0 ? alertSaveFailText : alertSaveSuccessText)
         }
 
@@ -91,6 +106,7 @@ const RegisterForm = props => {
         <View>
             <TextInput value={username} onChangeText={onUsernameChangeText }  placeholder="username"/>
             <TextInput value={name} onChangeText={onNameChangeText}  placeholder="name"/>
+            <TextInput value={surname} onChangeText={onSurnameChangeText}  placeholder="surname"/>
             <TextInput value={email} onChangeText={onEmailChangeText } placeholder="email"/>
             <TouchableOpacity onPress={onSaveButtonPressed}
                 style={{width: 200, height:25, backgroundColor: 'blue'}}>

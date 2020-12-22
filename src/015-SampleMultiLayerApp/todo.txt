@@ -2,7 +2,7 @@
 
 +2. Tümünü sil buttonu eklenecek sormadan silecek. İstenirse sil button'unun disabled durumu bir switch'e bağlı olabilir
 
-3. Ad ve soyad ayrı alanlardan girilsin ancak userInfo için soyad büyük harf olacak şekilde birleştirilsin. Adın da ilk harfi büyük diğerleri
++3. Ad ve soyad ayrı alanlardan girilsin ancak userInfo için soyad büyük harf olacak şekilde birleştirilsin. Adın da ilk harfi büyük diğerleri
 küçük harf olarak eklenecektir
 
 4. Yeni repository eklenecek
