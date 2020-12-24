@@ -2,10 +2,9 @@ import {UserInfo} from "../entity/UserInfo.js"
 import {UserInfoRepository} from "../repository/UserInfoRepository.js"
 
 class CSDChatAppHelper {
-    constructor(userInfoRepository, productRepository)
+    constructor(userInfoRepository)
     {
         this._userInfoRepository = userInfoRepository
-        this._productRepository = productRepository
     }
 
     saveUser(userInfo)
