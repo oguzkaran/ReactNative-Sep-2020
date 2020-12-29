@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, Alert, Image } from 'react-native';
 import Greeting from './Greeting.js'
@@ -12,8 +11,7 @@ export default function App() {
       <Image source={{uri : "https://i.ytimg.com/vi/YzrAHP0TovY/maxresdefault.jpg"}}
                   style={{width : 300, height : 300}}/>
       <Image source={{uri : "https://i.imgur.com/DEnuhHr.jpeg"}}
-                  style={{width : 200,  height : 200}}/>
-      <StatusBar style="auto" />
+                  style={{width : 200,  height : 200}}/>      
     </View>
   );
 }

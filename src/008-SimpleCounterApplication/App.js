@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -7,8 +6,7 @@ import {CounterComponent} from './CounterComponent.js';
 export default function App() {
   return (
     <View style={styles.container}>
-      <CounterComponent text="Sayaç"/>
-      <StatusBar style="auto" />
+      <CounterComponent text="Sayaç"/>      
     </View>
   );
 }

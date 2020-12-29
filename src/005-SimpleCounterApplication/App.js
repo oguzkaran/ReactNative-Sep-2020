@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -10,8 +9,7 @@ export default function App() {
       <Text>CSD</Text>
       <Counter incName="Artır" decName="Azalt" clrName="Temizle" initVal="1"/>
       <Text>Counter2</Text>
-      <Counter/>
-      <StatusBar style="auto" />
+      <Counter/>      
     </View>
   );
 }

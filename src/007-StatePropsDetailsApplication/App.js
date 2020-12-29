@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -16,8 +15,7 @@ export default function App() {
       <YourComponent message="Sayaç->" order="2"/>
       <YourComponent message="Counter" order="3"/>
       <Text>CSD</Text>
-      <TheirComponent message="count" order="4"/>
-      <StatusBar style="auto" />
+      <TheirComponent message="count" order="4"/>      
     </View>
   );
 }

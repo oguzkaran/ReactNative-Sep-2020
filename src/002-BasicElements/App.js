@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -21,8 +20,7 @@ export default function App() {
       <RandomSensorGenerator/>
       <RandomSensorGenerator/>
       <RandomSensorGenerator/>
-      <RandomSensorGenerator/>
-      <StatusBar style="auto" />
+      <RandomSensorGenerator/>      
     </View>
   );
 }
