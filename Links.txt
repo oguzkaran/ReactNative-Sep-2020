@@ -5,5 +5,5 @@ Github    : https://github.com/oguzkaran/ReactNative-Sep-2020
 
 İletişim Bilgileri:
 Oğuz Karan
-Email			: oguzkaran@csystem.org 
-Tel			    : 05325158012
+Email     : oguzkaran@csystem.org 
+Tel       : 05325158012
