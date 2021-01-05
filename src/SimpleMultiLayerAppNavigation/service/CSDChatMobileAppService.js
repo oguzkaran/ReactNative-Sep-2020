@@ -37,6 +37,11 @@ class CSDChatMobileAppService {
         return this._chatAppHelper.getUserById(id)
     }
 
+    getUserIdByUsername(username)
+    {
+        return this._chatAppHelper.getUserIdByUserName(username)
+    }
+
     getAllUsers()
     {
         //...

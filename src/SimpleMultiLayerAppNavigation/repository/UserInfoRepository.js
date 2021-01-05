@@ -33,6 +33,13 @@ class UserInfoRepository {
         return g_users.findIndex(ui => ui.username == username) >= 0
     }
 
+    findUserIdByUserName(username)
+    {
+        const index = g_users.findIndex(ui => ui.username == username)
+
+        return index < 0 ? 0 : g_users[index].id;
+    }
+
     updateDate(userInfo)
     {
         const index = g_users.findIndex(ui => ui.id == userInfo.id)
