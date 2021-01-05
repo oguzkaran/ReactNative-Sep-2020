@@ -1,5 +1,5 @@
 class UserInfo {
-    constructor(id, username, name, email)
+    constructor(id = 0, username = "", name = "", email = "")
     {
         this._id = id
         this._username = username

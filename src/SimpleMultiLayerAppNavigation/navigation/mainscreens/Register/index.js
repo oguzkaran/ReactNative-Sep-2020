@@ -11,9 +11,9 @@ import {buttonSaveUserText} from '../../../resource/Resource.js'
 import {placeholderUsernameText, placeholderNameText, placeholderEmailText} from '../../../resource/Resource.js'
 
 const RegisterScreen = ({navigation}) => {
-    const [username, setUsername] = useState("")
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("oguzkaran")
+    const [name, setName] = useState("Oğuz Karan")
+    const [email, setEmail] = useState("oguzkaran@csystem.org")
     const [usernameValidationInfo, setUsernameValidationInfo] = useState({borderColor:'gray', borderWidth:1})
     const [nameValidationInfo, setNameValidationInfo] = useState({borderColor:'gray', borderWidth:0})
     const [emailValidationInfo, setEmailValidationInfo] = useState({borderColor:'gray', borderWidth:0})

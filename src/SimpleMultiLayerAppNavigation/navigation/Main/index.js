@@ -6,6 +6,7 @@ import StartScreen from '../mainscreens/Start'
 import LoginScreen from '../mainscreens/Login'
 import RegisterScreen from '../mainscreens/Register'
 import ListScreen from '../mainscreens/List'
+import UserDetailsScreen from '../mainscreens/UserDetails'
 
 const ScreenStack = createStackNavigator()
 
@@ -17,6 +18,7 @@ const MainNavigation = () => {
             <ScreenStack.Screen name="Login" component={LoginScreen}/>
             <ScreenStack.Screen name="Register" component={RegisterScreen}/>
             <ScreenStack.Screen name="List" component={ListScreen}/>
+            <ScreenStack.Screen name="UserDetails" component={UserDetailsScreen}/>
           </ScreenStack.Navigator>
         </NavigationContainer>
     );

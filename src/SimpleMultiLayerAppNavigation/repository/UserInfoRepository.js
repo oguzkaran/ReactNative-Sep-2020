@@ -23,6 +23,11 @@ class UserInfoRepository {
         g_users = []
     }
 
+    findById(id)
+    {
+        return g_users.find(ui => ui.id == id)
+    }
+
     existsByUsername(username)
     {
         return g_users.findIndex(ui => ui.username == username) >= 0

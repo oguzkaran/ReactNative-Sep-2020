@@ -28,6 +28,11 @@ const StartScreen = ({navigation}) => {
                 onPress={() => navigation.navigate('List')}>
                 <Text style={{textAlign: 'center'}}>List</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={{width: 200, height:25, backgroundColor: 'gray', textAlign: 'center'}}
+                onPress={() => navigation.navigate('Search')}>
+                <Text style={{textAlign: 'center'}}>Search</Text>
+            </TouchableOpacity>
         </View>
     )
 }

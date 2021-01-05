@@ -30,6 +30,11 @@ class CSDChatAppHelper {
         return this._userInfoRepository.existsByUsername(username)
     }
 
+    getUserById(id)
+    {
+        return this._userInfoRepository.findById(id)
+    }
+
     getAllUsers()
     {
         //...

@@ -12,8 +12,8 @@ const ListScreen = ({navigation}) => {
 
     const onListViewTouchableOpacityPress = ui => {
         const action = ui => {
-            alert(`[${ui.id}]${ui.name}-${ui.username}-${ui.lastUpdate.toString()}`)
             mobileAppService.updateUserDate(ui)
+            navigation.navigate("UserDetails", {userId: ui.id})
         }
         ExceptionUtil.subscribe(() => action(ui), ex => alert(ex.message))
     }
