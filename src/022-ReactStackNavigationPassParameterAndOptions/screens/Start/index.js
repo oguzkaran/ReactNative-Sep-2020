@@ -25,7 +25,7 @@ const StartScreen = ({navigation}) => {
             <Button
                 title="Home Screen"
                 onPress={() => navigation.navigate('Home',
-                            {greetingText: value, number:getRandom()})}>
+                            {greetingText: value, number:getRandom(), homeTitle: "My Home Screen"})}>
             </Button>
         </View>
     )
