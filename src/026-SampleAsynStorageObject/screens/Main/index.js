@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {View, TextInput, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Person from '../../viewmodel/Person'
-
 const MainScreen = () => {
     const personKey = "@person"
     const [nameInputText, setNameInputText] = useState("")
@@ -18,9 +16,6 @@ const MainScreen = () => {
         try {
             await AsyncStorage.setItem(personKey, JSON.stringify({name: nameInputText, email: emailInputText}))
 
-            // Dikkat örnekte aşağıdaki gibi çağrı _name ve _email olarak kaydedimesini sağlar
-            //await AsyncStorage.setItem(personKey, JSON.stringify(new Person(nameInputText, emailInputText)))
-
             alert("Mesaj kaydedildi")
         }
         catch (error) {
@@ -30,7 +25,13 @@ const MainScreen = () => {
 
     const retrieveMessage = async () => {
         try {
-            const person = JSON.parse(await AsyncStorage.getItem(personKey))
+            const dataStr = await AsyncStorage.getItem(personKey)
+
+            if (dataStr == null) {
+                alert('Veri bulunamadı')
+                return
+            }
+            const person = JSON.parse(dataStr)
 
             return `${person.name}, ${person.email}`
         }
