@@ -7,10 +7,15 @@ class CSDChatMobileAppService {
         this._chatAppHelper = chatAppHelper
     }
 
-    saveUser(userInfo)
+    async saveUser(userInfo)
     {
-        //...
-        return this._chatAppHelper.saveUser(userInfo)
+        const user = this._chatAppHelper.saveUser(userInfo)
+
+        return new Promise((resolve, reject) => {
+            resolve(user)
+            reject("CSDChatMobileAppService.saveUser")
+        })
+        return
     }
 
     updateUserDate(userInfo)
@@ -25,12 +30,6 @@ class CSDChatMobileAppService {
         return this._chatAppHelper.deleteAllUsers()
     }
 
-    exitsUserByUsername(username)
-    {
-        //...
-        return this._chatAppHelper.existsUserByUsername(username)
-    }
-
     getUserById(id)
     {
         //...
@@ -42,10 +41,15 @@ class CSDChatMobileAppService {
         return this._chatAppHelper.getUserIdByUserName(username)
     }
 
-    getAllUsers()
+    async getAllUsers()
     {
-        //...
-        return this._chatAppHelper.getAllUsers()
+        const users = await this._chatAppHelper.getAllUsers()
+
+        return new Promise((resolve, reject) => {
+            resolve(users)
+            reject("CSDChatMobileAppService.getAllUsers")
+        })
+
     }
 
     static getInstance()

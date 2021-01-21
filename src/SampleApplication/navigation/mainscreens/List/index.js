@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Switch} from 'react-native';
 import {ExceptionUtil} from "../../../util/ExceptionUtil.js"
 import {mobileAppService} from '../../../global/global.js'
 import {buttonDeleteAllUsersText, buttonListUsersText} from '../../../resource/Resource.js'
-import {alertUnexpectedStateText, alertNoSuchUserText} from '../../../resource/Resource.js'
+import {alertInvalidOperationText, alertUnexpectedStateText, alertNoSuchUserText} from '../../../resource/Resource.js'
 
 const ListScreen = ({navigation}) => {
     const [users, setUsers] = useState([])
@@ -34,10 +34,10 @@ const ListScreen = ({navigation}) => {
         ExceptionUtil.subscribe(action, () => alert(alertUnexpectedStateText))
     }
 
-    const onListButtonPressed = () => {
-        const action = () => {
-            const allUsers = mobileAppService.getAllUsers()
-
+    const onListButtonPressed = async () => {
+        const action = async () => {
+            const allUsers = await mobileAppService.getAllUsers()
+            
             if (allUsers.length != 0)
                 setUsers(allUsers)
             else

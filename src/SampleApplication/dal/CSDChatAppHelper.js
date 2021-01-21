@@ -7,43 +7,46 @@ class CSDChatAppHelper {
         this._userInfoRepository = userInfoRepository
     }
 
-    saveUser(userInfo)
+    async saveUser(userInfo)
     {
         //...
-        return this._userInfoRepository.save(userInfo)
+        const user = this._userInfoRepository.save(userInfo)
+
+        return new Promise((resolve, reject) => {
+            resolve(user)
+            reject("CSDChatAppHelper.saveUser")
+        })
     }
 
-    deleteAllUsers()
+    async deleteAllUsers()
     {
         this._userInfoRepository.deleteAll()
     }
 
-    updateUserDate(userInfo)
+    async updateUserDate(userInfo)
     {
         //...
         return this._userInfoRepository.updateDate(userInfo)
     }
 
-    exitsUserByUsername(username)
-    {
-        //...
-        return this._userInfoRepository.existsByUsername(username)
-    }
-
-    getUserById(id)
+    async getUserById(id)
     {
         return this._userInfoRepository.findById(id)
     }
 
-    getUserIdByUserName(username)
+    async getUserIdByUserName(username)
     {
         return this._userInfoRepository.findUserIdByUserName(username)
     }
 
-    getAllUsers()
+    async getAllUsers()
     {
-        //...
-        return this._userInfoRepository.all
+        const users = await this._userInfoRepository.getAll()
+
+        return new Promise((resolve, reject) => {
+            resolve(users)
+            reject("CSDChatAppHelper.getAllUsers")
+        })
     }
 
     static getInstance()
@@ -51,7 +54,6 @@ class CSDChatAppHelper {
         return g_chatAppHelper
     }
 }
-
 
 const g_chatAppHelper = new CSDChatAppHelper(UserInfoRepository.getInstance())
 

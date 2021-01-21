@@ -1,92 +1,109 @@
 import {UserInfo} from "../entity/UserInfo.js"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const keyPrefix = "@user"
+const keyPrefix = "@yyyy"
 const idKey = `${keyPrefix}:id`
 
 class UserInfoRepository {
-    async getAllKeys()
-    {
-        return await AsyncStorage.getAllKeys().filter(k => k.startsWith(keyPrefix))
-    }
-
     async save(userInfo)
     {
-        if (!this.existsByUsername(userInfo.username)) {
+        const keys = await AsyncStorage.getAllKeys()
+
+        let status = true
+
+        if (keys.length != 0) {
+            const userKeys = await AsyncStorage.multiGet(keys.filter(k => k.startsWith(`${keyPrefix}`)))
+
+            status = userKeys.map(ui => JSON.parse(ui[1])).filter(ui => ui.username == userInfo.username).length == 0
+        }
+
+        if (status) {
             const idValue = await AsyncStorage.getItem(idKey)
             const currentId = idValue == null ? 1 : parseInt(idValue) + 1
+
             userInfo.id = currentId
             await AsyncStorage.setItem(`${keyPrefix}:${currentId}`, JSON.stringify(userInfo))
             await AsyncStorage.setItem(idKey, `${currentId}`)
         }
 
-        return userInfo
+        return new Promise((resolve, reject) => {
+            resolve(userInfo)
+            reject("UserInfoRepository.save")
+        })
     }
 
-    deleteAll()
+    async deleteAll()
     {
-        g_users = []
+        const keys = await AsyncStorage.getAllKeys()
+        await AsyncStorage.multiRemove(keys)
+
+        return new Promise((resolve, reject) => {
+            reject("UserInfoRepository.save")
+        })
     }
 
     async findById(id)
     {
         const item = await AsyncStorage.getItem(`${keyPrefix}:${id}`)
 
-        return item != null ? item : undefined
+        return new Promise((resolve, reject) => {
+            resolve(item != null ? JSON.parse(item) : undefined)
+            reject("UserInfoRepository.save")
+        })
     }
 
     async existsUser(username, password)
     {
-        const keys = await getAllKeys()
+        const keys = await AsyncStorage.getAllKeys()
 
         if (keys.length == 0)
             return false
 
-        const existsUserCallback = ui => JSON.parse(ui[1])._username == username && JSON.parse(ui[1])._password == password
+        const existsUserCallback = ui => JSON.parse(ui[1]).username == username && JSON.parse(ui[1]).password == password
 
-        return await AsyncStorage.multiGet(keys).filter(existsUserCallback).length != 0
-    }
+        const status = await AsyncStorage.multiGet(keys).filter(existsUserCallback).length != 0
 
-    async existsByUsername(username)
-    {
-        const keys = await getAllKeys()
-
-        if (keys.length == 0)
-            return false
-
-        const existsUserCallback = ui => JSON.parse(ui[1])._username == username)
-
-        return await AsyncStorage.multiGet(keys).filter(existsUserCallback).length != 0
+        return new Promise((resolve, reject) => {
+            resolve(status)
+            reject("UserInfoRepository.save")
+        })
     }
 
     async findUserIdByUserName(username)
     {
-        const keys = await getAllKeys()
+        const keys = await AsyncStorage.getAllKeys()
 
         if (keys.length == 0)
             return false
 
-        const findUserIdByUsernameCallback = ui => JSON.parse(ui[1])._username == username)
+        const findUserIdByUsernameCallback = ui => JSON.parse(ui[1]).username == username
         const usersInfo = await AsyncStorage.multiGet(keys).filter(findUserIdByUsernameCallback)
 
-        return  usersInfo.length > 0 ? JSON.parse(usersInfo[0][1])._id : 0
+        return  usersInfo.length > 0 ? JSON.parse(usersInfo[0][1]).id : 0
     }
 
-    updateDate(userInfo)
+    async updateDate(userInfo)
     {
-        const index = g_users.findIndex(ui => ui.id == userInfo.id)
+        const user = this.findById(userInfo.id)
 
-        if (index < 0)
+        if (user == undefined)
             return false
 
-        g_users[index].lastUpdate = new Date()
+        user.lastUpdate = new Date()
+        await AsyncStorage.setItem(`${keyPrefix}:${user.id}`, JSON.stringify(user))
 
         return true
     }
 
     async getAll()
     {
-        return await AsyncStorage.multiGet(await getAllKeys()).map(ui => JSON.parse(ui[1]))
+        const keys = await AsyncStorage.getAllKeys()
+        const usersInfo = await AsyncStorage.multiGet(keys.filter(k => k.startsWith(`${keyPrefix}`) && !k.includes('id')))
+
+        return new Promise((resolve, reject) => {
+            resolve(usersInfo.map(ui => JSON.parse(ui[1])))
+            reject("UserInfoRepository.getAll")
+        })
     }
 
     static getInstance()

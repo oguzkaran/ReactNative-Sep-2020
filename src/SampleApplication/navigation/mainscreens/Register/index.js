@@ -66,7 +66,7 @@ const RegisterScreen = ({navigation}) => {
             setEmailValidationInfo({borderColor:'gray', borderWidth:0})
         setEmail(text)
     }
-    const onSaveButtonPressed = () => {
+    const onSaveButtonPressed = async () => {
         const count = validate()
         let message = ""
 
@@ -75,8 +75,8 @@ const RegisterScreen = ({navigation}) => {
             return
         }
 
-        const action = () => {
-            const user = mobileAppService.saveUser(new UserInfo(0, username, name, email))
+        const action = async () => {
+            const user = await mobileAppService.saveUser(new UserInfo(0, username, name, email))
 
             if (user.id != 0)
                 clearTextInputs();
