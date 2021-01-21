@@ -1,18 +1,23 @@
 import {UserInfo} from "../entity/UserInfo.js"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let g_users = []
-let g_currentId = 1
+const keyPrefix = "@user"
+const idKey = `${keyPrefix}:id`
 
 class UserInfoRepository {
-    constructor()
+    async getAllKeys()
     {
+        return await AsyncStorage.getAllKeys().filter(k => k.startsWith(keyPrefix))
     }
 
-    save(userInfo)
+    async save(userInfo)
     {
         if (!this.existsByUsername(userInfo.username)) {
-            userInfo.id = g_currentId++
-            g_users.push(userInfo)
+            const idValue = await AsyncStorage.getItem(idKey)
+            const currentId = idValue == null ? 1 : parseInt(idValue) + 1
+            userInfo.id = currentId
+            await AsyncStorage.setItem(`${keyPrefix}:${currentId}`, JSON.stringify(userInfo))
+            await AsyncStorage.setItem(idKey, `${currentId}`)
         }
 
         return userInfo
@@ -23,26 +28,48 @@ class UserInfoRepository {
         g_users = []
     }
 
-    findById(id)
+    async findById(id)
     {
-        return g_users.find(ui => ui.id == id)
+        const item = await AsyncStorage.getItem(`${keyPrefix}:${id}`)
+
+        return item != null ? item : undefined
     }
 
-    existsUser(username, password)
+    async existsUser(username, password)
     {
-        return g_users.findIndex(ui => ui.username == username && ui.email == email) >= 0
+        const keys = await getAllKeys()
+
+        if (keys.length == 0)
+            return false
+
+        const existsUserCallback = ui => JSON.parse(ui[1])._username == username && JSON.parse(ui[1])._password == password
+
+        return await AsyncStorage.multiGet(keys).filter(existsUserCallback).length != 0
     }
 
-    existsByUsername(username)
+    async existsByUsername(username)
     {
-        return g_users.findIndex(ui => ui.username == username) >= 0
+        const keys = await getAllKeys()
+
+        if (keys.length == 0)
+            return false
+
+        const existsUserCallback = ui => JSON.parse(ui[1])._username == username)
+
+        return await AsyncStorage.multiGet(keys).filter(existsUserCallback).length != 0
     }
 
-    findUserIdByUserName(username)
+    async findUserIdByUserName(username)
     {
-        const index = g_users.findIndex(ui => ui.username == username)
+        const keys = await getAllKeys()
 
-        return index < 0 ? 0 : g_users[index].id;
+        if (keys.length == 0)
+            return false
+
+        const findUserIdByUsernameCallback = ui => JSON.parse(ui[1])._username == username)
+        const usersInfo = await AsyncStorage.multiGet(keys).filter(findUserIdByUsernameCallback)
+
+        return  usersInfo.length > 0 ? JSON.parse(usersInfo[0][1])._id : 0
     }
 
     updateDate(userInfo)
@@ -57,9 +84,9 @@ class UserInfoRepository {
         return true
     }
 
-    get all()
+    async getAll()
     {
-        return [...g_users]
+        return await AsyncStorage.multiGet(await getAllKeys()).map(ui => JSON.parse(ui[1]))
     }
 
     static getInstance()

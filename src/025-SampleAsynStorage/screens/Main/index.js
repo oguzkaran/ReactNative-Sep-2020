@@ -54,6 +54,7 @@ const MainScreen = () => {
     const setPeopleList = p => (
         <TouchableOpacity
             key={p.email}
+            onPress={() => {}}
             style={{width: 200, height: 30}}>
             <Text style={{textAlign: 'center', backgroundColor: 'green'}}>{p.name}</Text>
         </TouchableOpacity>
