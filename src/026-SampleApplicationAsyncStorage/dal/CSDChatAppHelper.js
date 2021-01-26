@@ -10,11 +10,11 @@ class CSDChatAppHelper {
     async saveUser(userInfo)
     {
         //...
-        const user = this._userInfoRepository.save(userInfo)
+        const user = await this._userInfoRepository.save(userInfo)
 
         return new Promise((resolve, reject) => {
             resolve(user)
-            reject("CSDChatAppHelper.saveUser")
+            reject(new Error("CSDChatAppHelper.saveUser"))
         })
     }
 
@@ -45,7 +45,7 @@ class CSDChatAppHelper {
 
         return new Promise((resolve, reject) => {
             resolve(users)
-            reject("CSDChatAppHelper.getAllUsers")
+            reject(new Error("CSDChatAppHelper.getAllUsers"))
         })
     }
 

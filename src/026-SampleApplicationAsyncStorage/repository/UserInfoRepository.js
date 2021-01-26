@@ -1,7 +1,7 @@
 import {UserInfo} from "../entity/UserInfo.js"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const keyPrefix = "@yyyy"
+const keyPrefix = "@user"
 const idKey = `${keyPrefix}:id`
 
 class UserInfoRepository {
@@ -28,7 +28,7 @@ class UserInfoRepository {
 
         return new Promise((resolve, reject) => {
             resolve(userInfo)
-            reject("UserInfoRepository.save")
+            reject(new Error("UserInfoRepository.save"))
         })
     }
 
@@ -38,7 +38,7 @@ class UserInfoRepository {
         await AsyncStorage.multiRemove(keys)
 
         return new Promise((resolve, reject) => {
-            reject("UserInfoRepository.save")
+            reject(new Error("UserInfoRepository.save"))
         })
     }
 
@@ -48,7 +48,7 @@ class UserInfoRepository {
 
         return new Promise((resolve, reject) => {
             resolve(item != null ? JSON.parse(item) : undefined)
-            reject("UserInfoRepository.save")
+            reject(new Error("UserInfoRepository.save"))
         })
     }
 
@@ -65,7 +65,7 @@ class UserInfoRepository {
 
         return new Promise((resolve, reject) => {
             resolve(status)
-            reject("UserInfoRepository.save")
+            reject(new Error("UserInfoRepository.save"))
         })
     }
 
@@ -102,7 +102,7 @@ class UserInfoRepository {
 
         return new Promise((resolve, reject) => {
             resolve(usersInfo.map(ui => JSON.parse(ui[1])))
-            reject("UserInfoRepository.getAll")
+            reject(new Error("UserInfoRepository.getAll"))
         })
     }
 

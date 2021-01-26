@@ -9,13 +9,12 @@ class CSDChatMobileAppService {
 
     async saveUser(userInfo)
     {
-        const user = this._chatAppHelper.saveUser(userInfo)
+        const user = await this._chatAppHelper.saveUser(userInfo)
 
         return new Promise((resolve, reject) => {
             resolve(user)
-            reject("CSDChatMobileAppService.saveUser")
+            reject(new Error("CSDChatMobileAppService.saveUser"))
         })
-        return
     }
 
     updateUserDate(userInfo)
@@ -47,7 +46,7 @@ class CSDChatMobileAppService {
 
         return new Promise((resolve, reject) => {
             resolve(users)
-            reject("CSDChatMobileAppService.getAllUsers")
+            reject(new Error("CSDChatMobileAppService.getAllUsers"))
         })
 
     }
