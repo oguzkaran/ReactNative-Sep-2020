@@ -16,3 +16,7 @@ KAYNAK GÖSTERMEK KOŞULUYLA HER TÜRLÜ ALINTI YAPILABİLİR
 #callback
 #state
 #props
+#navigation
+#style
+#android
+#ios
