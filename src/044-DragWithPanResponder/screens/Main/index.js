@@ -9,13 +9,14 @@ class MainScreen extends Component {
         super()
         this.state = {
             orgPos: {
-                x: (width / 2) - 100,
-                y: (height / 2) - 100
+                x: (width / 2) - 50,
+                y: (height / 2) - 50
             },
             pos: {
-                x: (width / 2) - 100,
-                y: (height / 2) - 100
-            }
+                x: (width / 2) - 50,
+                y: (height / 2) - 50
+            },
+            bgcolor: 'blue'
         }
         this.onPanResponderMove = this.onPanResponderMove.bind(this)
         this.onPanResponderRelease = this.onPanResponderRelease.bind(this)
@@ -35,20 +36,22 @@ class MainScreen extends Component {
             pos: {
                 x: this.state.orgPos.x - dx,
                 y: this.state.orgPos.y - dy,
-            }
+            },
+            bgcolor: 'gray'
         })
     }
 
     onPanResponderRelease()
     {
         this.setState({
-            orgPos: this.state.pos
+            orgPos: this.state.pos,
+            bgcolor: 'blue'
         })
     }
 
     render()
     {
-        const {orgPos, pos} = this.state
+        const {orgPos, pos, bgcolor} = this.state
 
         return (
             <>
@@ -57,8 +60,10 @@ class MainScreen extends Component {
                 </Text>
                 <View
                     {...this._panResponder.panHandlers}
-                    style={[styles.square, {marginLeft: pos.x, marginTop: pos.y}]}
-                />
+                    style={[styles.square, {marginLeft: pos.x, marginTop: pos.y, backgroundColor: bgcolor}]}
+                >
+                    <Text>DRAG ME</Text>
+                </View>
             </>
         )
     }
@@ -72,9 +77,10 @@ const styles = StyleSheet.create({
     },
     square: {
         position: 'absolute',
-        width: 200,
-        height: 200,
-        backgroundColor: 'blue'
+        width: 100,
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 
