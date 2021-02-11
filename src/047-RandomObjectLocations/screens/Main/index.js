@@ -15,19 +15,19 @@ class MainScreen extends Component {
             bgcolor: 'blue'
         }
 
-        //this.startEMDRInterval = null
-        this.emdrIntervalCallback = this.emdrIntervalCallback.bind(this)
-        this.onStartEMDRPressed = this.onStartEMDRPressed.bind(this)
+        this.blueObjectInterval = null
+        this.blueObjectIntervalCallback = this.blueObjectIntervalCallback.bind(this)
+        this.onStartPressed = this.onStartPressed.bind(this)
         this.scale = 10
     }
 
     componentWillUnmount()
     {
-        if (this.startEMDRInterval != null)
-            clearInterval(this.startEMDRInterval)
+        if (this.blueObjectInterval != null)
+            clearInterval(this.blueObjectInterval)
     }
 
-    emdrIntervalCallback()
+    blueObjectIntervalCallback()
     {
         const {pos, bgcolor} = this.state
 
@@ -41,10 +41,11 @@ class MainScreen extends Component {
         this.setState({pos : {x: pos.x + this.scale, y: pos.y}})
     }
 
-    onStartEMDRPressed()
+    onStartPressed()
     {
-        if (this.startEMDRInterval == undefined)
-            this.startEMDRInterval = setInterval(this.emdrIntervalCallback, 10)
+        //setInterval kullanımı bu örnek için az sorun oluştursa da çoğu zaman yetersizdir. Bunu ileride çözeceğiz
+        if (this.blueObjectInterval == null)
+            this.blueObjectInterval = setInterval(this.blueObjectIntervalCallback, 10)
     }
 
     render()
@@ -53,11 +54,11 @@ class MainScreen extends Component {
 
         return (
             <>
-                <Text style={styles.posShow}>
+            <Text style={styles.posShow}>
                     x: {pos.x} y: {pos.y}
                 </Text>
-                <TouchableOpacity style={styles.button} onPress={this.onStartEMDRPressed}>
-                    <Text style={{backgroundColor: 'gray'}}>Start EMDR</Text>
+                <TouchableOpacity style={[styles.button, {marginTop: 70}]} onPress={this.onStartPressed}>
+                    <Text style={{backgroundColor: 'gray'}}>Start</Text>
                 </TouchableOpacity>
                 <View
                     style={[styles.square, {marginLeft: pos.x, marginTop: pos.y, backgroundColor: bgcolor}]}>
@@ -76,8 +77,9 @@ const styles = StyleSheet.create({
     },
     button: {
         textAlign: 'center',
-        marginTop: 70,
         position: 'absolute',
+        width: 200,
+        height: 50
     },
     square: {
         position: 'absolute',
