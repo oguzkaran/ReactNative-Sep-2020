@@ -1,0 +1,6 @@
+curl -d '{"username":"kaanaslan", "start":"15/03/2021", "expected":"02/04/2021", "title":"Terapi Kulubu", "description":"Terapi kulubu mobil"}' -H "Content-Type: application/json" -X POST http://192.168.1.167:50500/api/todos/save
+
+
+
+
+{"username":"kaanaslan", "start":"15/03/2021", "expected":"02/04/2021", "title":"Terapi Kulubu", "description":"Terapi kulubu mobil"}

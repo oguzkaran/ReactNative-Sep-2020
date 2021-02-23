@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, FlatList, Text, StyleSheet} from 'react-native';
-
-const url = 'http://api.geonames.org/wikipediaSearchJSON?q=ankara&maxRows=30&username=csystem' //GET
+import {ActivityIndicator, FlatList, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 
 class MainScreen extends Component {
     constructor(props) {
@@ -9,25 +7,43 @@ class MainScreen extends Component {
 
         this.state = {
             data: [],
-            isFetching: true
+            isFetching: true,
+            query: ""
         };
+
+        this.onSearchButtonPressed = this.onSearchButtonPressed.bind(this)
     }
 
-    componentDidMount()
+    onSearchButtonPressed()
     {
-        fetch(url)
+        const {isFetching, data, query} = this.state
+
+        fetch(`http://api.geonames.org/wikipediaSearchJSON?q=${query}&maxRows=30&username=csystem`)
             .then(response => response.json())
-            .then(json => this.setState({data: json.geonames}))
+            .then(json => {if (json.geonames.length == 0) alert("Not found any data"); this.setState({data: json.geonames})})
             .catch(err => alert(err))
             .finally(() => this.setState({isFetching: false}))
     }
 
     render()
     {
-        const {data, isFetching} = this.state
+        const {data, isFetching, query} = this.state
 
         return (
             <>
+                <Text style={{fontSize: 20}}>GEONAMES WIKIPEDIA SEARCH SERVICE</Text>
+
+                <TextInput
+                    style={{borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={text => this.setState({query: text})}
+                    value={query}
+                />
+                <TouchableOpacity
+                    style={{justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue', height: 40}}
+                    onPress={this.onSearchButtonPressed}
+                >
+                    <Text>Search</Text>
+                </TouchableOpacity>
                 {
                     isFetching ? <ActivityIndicator/> : (
                         <FlatList
