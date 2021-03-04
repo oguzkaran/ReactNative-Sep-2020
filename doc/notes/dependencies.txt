@@ -12,3 +12,20 @@ npm install @react-navigation/bottom-tabs
 
 
 npm install @react-native-async-storage/async-storage
+
+
+
+#Realm
+
+# Dikkat expo realm desteklemez react-native ile geliştirmeniz gerekir
+
+npm install realm 
+#mac veya root hakkına sahip olmayan linux sürümleri için yarn ya da npm için
+sudo yarn install realm
+veya
+sudo npm install realm
+
+#Eğer global düzeyde yüklemek isterseniz --save seçeneğini veya -g seçeneğini kullanabilirsiniz
+
+
+
