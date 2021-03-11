@@ -46,7 +46,7 @@ const MainScreen = (props) => {
     const onFetchButtonPressed =  async () =>  {
         try {
             const response = await fetch(url)
-            const json = await await response.json()
+            const json = await response.json()
             const name = json.results[0].name
 
             realm.write(() => addUserCallback(name))

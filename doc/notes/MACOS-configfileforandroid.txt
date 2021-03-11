@@ -1,0 +1,13 @@
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/emulator/platform-tools
+
+
+Bu satırlar gerekirse bash kullananlar için ~/.bash_profile veya ~/.bashrc dosyalarına, zsh kullananlar için ~/.zprofile veya ~/.zshrc
+config dosyalarına eklenmelidir. Eklemeden önce çalışıp çalışıp çalışmadığını test ediniz. Android studio ile uygulama açılmazsa
+bu satırları ilgili dosyaya ekleyiniz.
+
+Bu işlem genelde komut satırından uygulamayı yüklemek için gerekir. Android Studio üzerinden uygulamanın çalıştırılması noktasında çoğu zaman
+neredeyse hiçbir zaman gerekmez.
