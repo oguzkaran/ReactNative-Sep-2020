@@ -1,12 +1,14 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {TouchableOpacity, Image, TextInput, Text} from 'react-native';
 
 import Realm from 'realm'
 import axios from 'axios'
+import NetInfo from '@react-native-community/netinfo'
 
 const url = "https://randomuser.me/api/"
 
-const MainScreen = (props) => {
+const MainScreen = props => {
+
     const realm = new Realm({
         schema: [
             {
@@ -20,6 +22,13 @@ const MainScreen = (props) => {
     })
 
     const [users, setUsers] = useState(realm.objects('User'))
+    const [connected, setConnected] = useState(false)
+
+    useEffect(() => {
+        const networkChangeCallback = connection => setConnected(connection.type != 'none' && connection.type != 'unknown')
+        const unsubscribe = NetInfo.addEventListener(networkChangeCallback)
+        return () => unsubscribe()
+    })
 
     const addUserCallback = name => {
         try {
@@ -46,8 +55,12 @@ const MainScreen = (props) => {
 
     const onFetchButtonPressed =  async () =>  {
         try {
+            if (!connected) {
+                alert('Disconnected')
+                return
+            }
             const response = await axios.get(url)
-          
+
             const name = response.data.results[0].name
 
             realm.write(() => addUserCallback(name))
