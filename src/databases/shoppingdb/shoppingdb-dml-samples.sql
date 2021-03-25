@@ -87,3 +87,45 @@ and p.product_id = 2 and o.quantity = 3;
 select o.quantity, c.name
 from
 customers c left join orders o on c.customer_id = o.customer_id;
+
+
+-- Yazılar üzerinde işlem yapan bazı önemli fonksiyonlar
+-- || operatörü
+select c.name || '-' || p.name as info,
+       p.unit_price, o.unit_price, o.quantity,
+       o.quantity * o.unit_price, o.quantity * p.unit_price
+from
+orders o inner join products p on o.product_id = p.product_id
+inner join customers c on c.customer_id = o.customer_id order by o.unit_price;
+
+-- substr fonksiyonu
+select substr('ankara', 3, 3);
+
+-- rtrim ve trim fonksiyonları
+select '[' || rtrim('         ankara          ') || ']', '[' || ltrim('         ankara          ') || ']', '[' || trim('         ankara          ') || ']';
+
+
+-- length fonksiyonu
+select length('ankara');
+
+-- aggregate fonksiyonlar
+-- count fonksiyonu
+select count(*)
+from customers c inner join orders o on c.customer_id = o.customer_id
+where c.customer_id = 1;
+
+-- sum fonksiyonu
+-- customer id si bilinen bir müşterinin toplam siparişlerine ne kadar odediğini bulan sorgu
+select sum(o.quantity * o.unit_price)
+from customers c inner join orders o on c.customer_id = o.customer_id
+where c.customer_id = 1;
+
+-- sum fonksiyonu
+-- customer id si bilinen bir müşterinin toplam siparişleri ürün bazında gruplandığında herbir ürün için toplam ödediği
+-- miktarı bulan sorgu
+select o.product_id, p.name, sum(o.quantity), sum(o.quantity * o.unit_price)
+from
+customers inner join orders o on customers.customer_id = o.customer_id
+inner join products p on p.product_id = o.product_id
+where o.customer_id = 1 group by o.product_id
+
