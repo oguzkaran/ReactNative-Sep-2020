@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Swipeable from '../Swipeable'
+import SwipeableButton from '../../components/SwipeableButton'
 
 export default MainScreen = () => {
     const [items, setItems] = useState(
@@ -11,8 +11,8 @@ export default MainScreen = () => {
     return (
         <>
             {
-                items.map(it => (
-                    <Swipeable key={it.id} onSwipe={onSwipe(it.id)} name={it.name}/>
+                items.map(item => (
+                    <SwipeableButton key={item.id} onSwipe={onSwipe(item.id)} name={item.name} onPress={() => alert(`${item.name}-${item.id}`)}/>
                 ))
             }
         </>

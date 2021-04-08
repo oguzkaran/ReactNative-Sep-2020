@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Text, ScrollView, TouchableOpacity, StyleSheet, View} from 'react-native';
 
-const Swipeable = ({onSwipe, name}) => {
+const SwipeableButton = ({onSwipe, name, onPress}) => {
     const onScroll = e => e.nativeEvent.contentOffset.x == 200 && onSwipe()
 
     const scrollProps = {
@@ -16,7 +16,7 @@ const Swipeable = ({onSwipe, name}) => {
     return (
         <View style={styles.swipe}>
             <ScrollView {...scrollProps}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onPress}>
                     <View style={styles.swipeItem}>
                         <Text style={styles.swipeText}>{name}</Text>
                     </View>
@@ -27,9 +27,10 @@ const Swipeable = ({onSwipe, name}) => {
     )
 }
 
-Swipeable.propTypes = {
+SwipeableButton.propTypes = {
     onSwipe: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -63,4 +64,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Swipeable
+export default SwipeableButton
