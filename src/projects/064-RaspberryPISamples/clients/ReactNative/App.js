@@ -21,10 +21,9 @@ import {
   Right,
 } from 'native-base';
 
-const uriLower = 'ws://161.97.141.113:5054';
+const uriLower = 'ws://192.168.1.127:5054';
 const uriUpper = 'ws://161.97.141.113:5055';
 const socketLower = new WebSocket(uriLower);
-const socketUpper = new WebSocket(uriUpper);
 
 const App = () => {
   const [messageText, setMessageText] = useState('');
@@ -44,27 +43,9 @@ const App = () => {
     console.log('LowerServer:Reason:', err.reason);
   };
 
-  socketUpper.onopen = () => {
-    console.log('UpperServer:onopen', 'connected');
-  };
-
-  socketUpper.onmessage = e => {
-    console.log('UpperServer:Received:', e.data);
-    setResultText(e.data.toString());
-  };
-
-  socketUpper.onclose = err => {
-    console.log('UpperServer:Error:', err.message);
-  };
-
-  socketUpper.onclose = e => {
-    console.log('UpperServer:Code:', e.code);
-    console.log('UpperServer:Reason:', e.reason);
-  };
 
   const onOKButtonPressed = () => {
-    const socket = serverIndex === 0 ? socketLower : socketUpper;
-    socket.send(messageText);
+    socketLower.send(messageText);
   };
 
   return (
