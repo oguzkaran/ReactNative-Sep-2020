@@ -14,8 +14,7 @@ exports.lightInterval = function(n, ioNo, period) {
         if (value === '1')
             ++count;
 
-        fs.writeFile(path, value,
-            (e, d) => {if (e) console.log('Error:', e)})
+        fs.writeFile(path, value,  (e, d) => {if (e) console.log('Error:', e)})
         value = value === '1' ? '0' : '1';
     }, period);
 }
