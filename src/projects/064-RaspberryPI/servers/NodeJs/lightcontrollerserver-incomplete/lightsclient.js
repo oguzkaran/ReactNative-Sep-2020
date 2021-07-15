@@ -51,6 +51,7 @@ lightOnOffServer.on('connection', s =>  {
     socketLightOnOff.on('message', lightOnOffReceive)
 })
 
+// gpio27
 const readIoNosAndSend = () => {
     fs.readdir(gpioPath, (err, files) => {
         ioNos = [];
@@ -64,6 +65,7 @@ const lightsReceive = msg => {
     console.log('Lights Received:', msg)
     //Sadece ışıklar için istek yapılıypr. Mesaja bakmıyoruz
     readIoNosAndSend();
+    //socketLights.send(JSON.stringify({lights: ioNos}));
 }
 
 lightsServer.on('connection', s =>  {
@@ -71,4 +73,9 @@ lightsServer.on('connection', s =>  {
     console.log("Lights Client connected!...");
     socketLights.on('message', lightsReceive)
 })
+
+
+
+
+
 
